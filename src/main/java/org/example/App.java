@@ -32,9 +32,30 @@ public class App {
             } else if (command.equalsIgnoreCase("list")) {
                 processListCommand();
                 continue;
+            }else if(command.startsWith("info ")){
+                processInfoCommand(command.split(" "));
+                continue;
+            } else if (command.equalsIgnoreCase("version")){
+                processsVersionCommand();
+                continue;
             }
             printHelp();
         }
+    }
+
+    private static void processInfoCommand(String[] args) {
+        if(args.length!=2){
+            printHelp();
+            return;
+        }
+        MemberInfoPrinter memberInfoPrinter = context.getBean("memberInfoPrinter", MemberInfoPrinter.class);
+        memberInfoPrinter.printMemberInfo(args[1]);
+
+    }
+
+    private static void processsVersionCommand() {
+        VersionPrinter versionPrinter = context.getBean("versionPrinter", VersionPrinter.class);
+        versionPrinter.print();
     }
 
     private static void processNewCommand(String[] args) {
