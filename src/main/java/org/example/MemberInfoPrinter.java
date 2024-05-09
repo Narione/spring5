@@ -2,29 +2,22 @@ package org.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
+@Component
 public class MemberInfoPrinter {
-    @Autowired
-    private MemberDao memDao;
-    @Autowired
-    @Qualifier("printer")
-    private MemberPrinter printer;
+    private final MemberDao memDao;
+    private final MemberPrinter printer;
 
-    /*
-        public void printMemberInfo(String email){
-            Member member = memDao.selectByEmail(email);
-            if(member == null){
-                System.out.println("데이터 없음\n");
-                return;
-            }
-            printer.print(member);
-            System.out.println();
-        }
-    */
-//    public void setMemDao(MemberDao memDao) {
+    public MemberInfoPrinter(MemberDao memDao, @Qualifier("printer") MemberPrinter printer) {
+        this.memDao = memDao;
+        this.printer = printer;
+    }
+
+    //    public void setMemDao(MemberDao memDao) {
 //        this.memDao = memDao;
 //    }
 //

@@ -2,10 +2,11 @@ package org.example;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 
 import java.time.format.DateTimeFormatter;
 import java.util.Optional;
-
+@Component("printer")
 public class MemberPrinter {
     private DateTimeFormatter dateTimeFormatter;
 

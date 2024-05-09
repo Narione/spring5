@@ -1,10 +1,17 @@
 package org.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
-
+@Service("memberRegisterService")
 public class MemberRegisterService {
-    private MemberDao memberDao;
+    @Autowired
+    private final MemberDao memberDao;
 
+    // 필드를 파라미터로 갖는 생성자를 선언하기만 하면
+    // 자동으로 스프링 빈을 주입해준다.
     public MemberRegisterService(MemberDao memberDao){
         this.memberDao= memberDao;
     }

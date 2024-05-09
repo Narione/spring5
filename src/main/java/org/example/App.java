@@ -2,6 +2,7 @@ package org.example;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.Scanner;
 
@@ -9,10 +10,12 @@ import java.util.Scanner;
  * Hello world!
  */
 public class App {
-    private static ApplicationContext context;
+//    private static ApplicationContext context;
+private static ClassPathXmlApplicationContext context;
 
     public static void main(String[] args) {
-        context = new AnnotationConfigApplicationContext(ApplicationContextConfig.class);
+//        context = new AnnotationConfigApplicationContext(ApplicationContextConfig.class);
+        context = new ClassPathXmlApplicationContext("application-context-ex.xml");
         // 사용자가 입력한 정보로 메뉴 실행
         Scanner scanner = new Scanner(System.in);
         while (true) {
@@ -63,7 +66,7 @@ public class App {
             printHelp();
             return;
         }
-        MemberRegisterService registerService = context.getBean("registerService", MemberRegisterService.class);
+        MemberRegisterService registerService = context.getBean("memberRegisterService", MemberRegisterService.class);
         RegisterRequest request = new RegisterRequest();
         request.setEmail(args[1]);
         request.setName(args[2]);
@@ -89,7 +92,7 @@ public class App {
             printHelp();
             return;
         }
-        ChangePasswordService passwordService = context.getBean("passwordService", ChangePasswordService.class);
+        ChangePasswordService passwordService = context.getBean("changePasswordService", ChangePasswordService.class);
         try {
             passwordService.changePassword(args[1], args[2], args[3]);
             System.out.println("암호를 변경했습니다.\n");
@@ -101,7 +104,7 @@ public class App {
     }
 
     private static void processListCommand() {
-        MemberListPrinter listPrinter = context.getBean("listPrinter", MemberListPrinter.class);
+        MemberListPrinter listPrinter = context.getBean("memberListPrinter", MemberListPrinter.class);
         listPrinter.printAll();
 
     }
